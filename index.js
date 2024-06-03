@@ -65,7 +65,8 @@ if(character != undefined){
 }
 });
 
-// DELETE an item using splice()
+// DELETE an item using splice() 
+//BUG: it needs to update the IDs
 app.delete("/characters/:name", (req, res)=>{
   const name = req.params.name.toLowerCase();
   const charIndex = characters.findIndex((character)=>character.name.toLowerCase() == name);
@@ -74,7 +75,9 @@ app.delete("/characters/:name", (req, res)=>{
     res.status(404).send("The character does not exist");
   } else{
     characters.splice(charIndex, 1);
+    maxId = Math.max(...ids);
     res.sendStatus(204);
+    
   }
 
 
